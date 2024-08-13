@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animación "TE AMO MAMÁ" con Corazón y Flores</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .neon-text {
+            font-size: 80px;
+            color: #fff;
+            text-shadow:
+                0 0 5px #f00,
+                0 0 10px #f00,
+                0 0 20px #f00,
+                0 0 40px #ff00ff,
+                0 0 80px #ff00ff,
+                0 0 120px #ff00ff,
+                0 0 200px #ff00ff;
+            opacity: 0;
+            animation: fadeIn 3s forwards, glow 1.5s infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow:
+                    0 0 10px #ff00ff,
+                    0 0 20px #ff00ff,
+                    0 0 30px #ff00ff,
+                    0 0 50px #f00,
+                    0 0 60px #f00,
+                    0 0 80px #f00;
+            }
+            to {
+                text-shadow:
+                    0 0 20px #ff00ff,
+                    0 0 30px #ff00ff,
+                    0 0 40px #ff00ff,
+                    0 0 60px #f00,
+                    0 0 70px #f00,
+                    0 0 100px #f00;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            height: auto;
+            transform: translate(-50%, -50%) scale(0);
+            animation: drawHeart 2s forwards;
+        }
+
+        @keyframes drawHeart {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            animation: grow 2s forwards ease-out, fadeOut 3s forwards ease-out;
+        }
+
+        @keyframes grow {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Corazón SVG -->
+        <svg class="heart" viewBox="0 0 64 58">
+            <path d="M32 58s26-15.28 26-36C58 12 51.52 4 41 4c-7.68 0-9 7-9 7S29.68 4 22 4C12.48 4 6 12 6 22c0 20.72 26 36 26 36z" fill="none" stroke="#f00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+            <path d="M32 58s26-15.28 26-36C58 12 51.52 4 41 4c-7.68 0-9 7-9 7S29.68 4 22 4C12.48 4 6 12 6 22c0 20.72 26 36 26 36z" fill="none" stroke="#f00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+        </svg>
+
+        <!-- Texto dentro del corazón -->
+        <div class="neon-text">
+            TE AMO MAMÁ
+        </div>
+    </div>
+
+    <script>
+        document.body.addEventListener('click', function(event) {
+            const flower = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            flower.classList.add('flower');
+            flower.style.left = `${event.clientX - 25}px`;
+            flower.style.top = `${event.clientY - 25}px`;
+
+            flower.innerHTML = `
+                <circle cx="25" cy="25" r="10" fill="#FF69B4" />
+                <circle cx="15" cy="15" r="10" fill="#FF1493" />
+                <circle cx="35" cy="15" r="10" fill="#FF1493" />
+                <circle cx="15" cy="35" r="10" fill="#FF1493" />
+                <circle cx="35" cy="35" r="10" fill="#FF1493" />
+            `;
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
